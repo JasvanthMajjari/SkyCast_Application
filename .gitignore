@@ -1,0 +1,35 @@
+💡 Author
+
+Made by [Jasvanth kumar] with ☀️ & ❤️
+
+
+---
+
+### 🛑 `.gitignore`
+
+```gitignore
+# Node modules
+/node_modules
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+
+# Build & temp files
+dist/
+build/
+*.bak
+*.tmp
+
+# Optional: API key safety (if separated)
+.env
