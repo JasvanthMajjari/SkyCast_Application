@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   box-sizing: border-box;
 }
 
@@ -19,13 +19,12 @@ body {
 }
 
 .heading {
-  margin-top: 50px;
-  margin-left: 500px;
-  margin-right: 500px;
-  margin-bottom: 50px;
+  width: fit-content;
+  max-width: 90%;
+  margin: 40px auto;
   text-align: center;
   background-color: rgb(162, 220, 240);
-  padding: 10px;
+  padding: 10px 20px;
   font-size: 50px;
   font-family: cursive;
   border: 1px solid white;
@@ -79,7 +78,8 @@ body {
   margin-right: 10px;
 }
 
-.humidity, .wind {
+.humidity,
+.wind {
   font-size: 20px;
   margin-top: -6px;
 }
@@ -93,4 +93,100 @@ body {
   font-size: 14px;
   margin-top: 10px;
   display: none;
+}
+
+.input-group {
+  display: flex;
+}
+
+#searchBtn {
+  min-width: 60px;
+}
+
+/* Responsive Design */
+
+@media (max-width: 768px) {
+  .heading {
+    margin: 20px auto;
+    width: 90%;
+    font-size: 32px;
+    padding: 12px;
+  }
+
+  .main-heading span {
+    font-size: 14px;
+  }
+
+  .card {
+    width: 95%;
+    margin: 30px auto;
+    padding: 25px 20px;
+  }
+
+  .weather-icon {
+    width: 120px;
+  }
+
+  .weather h1 {
+    font-size: 55px;
+  }
+
+  .weather h2 {
+    font-size: 30px;
+  }
+
+  .details {
+    padding: 0;
+    margin-top: 30px;
+    gap: 15px;
+  }
+
+  .col {
+    margin-left: 0;
+  }
+
+  .col img {
+    width: 30px;
+  }
+
+  .humidity,
+  .wind {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heading {
+    font-size: 26px;
+    width: 95%;
+    margin: 15px auto;
+  }
+
+  .card {
+    width: 100%;
+    margin: 20px auto;
+    padding: 20px 15px;
+  }
+
+  .weather h1 {
+    font-size: 42px;
+  }
+
+  .weather h2 {
+    font-size: 24px;
+  }
+
+  .details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .col {
+    width: 100%;
+  }
+
+  .main-heading span {
+    font-size: 12px;
+  }
 }

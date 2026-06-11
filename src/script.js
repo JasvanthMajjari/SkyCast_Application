@@ -16,50 +16,78 @@
   })
 }*/
 
-
-
 const apiKey = "7d9dea470d3493dce8a51a597bd2eece";
-const apiUrl = 'https://api.openweathermap.org/data/2.5/weather?units=metric&q=';
+const apiUrl =
+  "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
 
-const searchBox = document.querySelector(".input-group input");
+const searchBox = document.getElementById("txtCity");
+const searchBtn = document.getElementById("searchBtn");
+
 const weatherIcon = document.querySelector(".weather-icon");
 
+const cityEl = document.querySelector(".city");
+const tempEl = document.querySelector(".temp");
+const humidityEl = document.querySelector(".humidity");
+const windEl = document.querySelector(".wind");
 
+const weatherBox = document.querySelector(".weather");
+const errorBox = document.querySelector(".error");
 
-async function checkWeather(city){
-  const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
-
-  if(response.status == 404){
-    document.querySelector(".error").style.display = "block";
-    document.querySelector(".weather").style.display = "none";
-  } else {
-    var data = await response.json();
-
-
-  document.querySelector(".city").innerHTML = data.name;
-  document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°C";
-  document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
-  document.querySelector(".wind").innerHTML = data.wind.speed + " kmph";
-
-  if(data.weather[0].main == "Clouds"){
-    weatherIcon.src = "../public/images/clouds.png";
-  }else if(data.weather[0].main == "Clear"){
-    weatherIcon.src = "../public/images/clear.png";
-  }else if(data.weather[0].main == "Rain"){
-    weatherIcon.src = "../public/images/rain.png";
-  }else if(data.weather[0].main == "Drizzle"){
-    weatherIcon.src = "../public/images/drizzle.png";
-  }else if(data.weather[0].main == "Mist"){
-    weatherIcon.src = "../public/images/mist.png";
-  }
-
-  document.querySelector(".weather").style.display = "block";
-  document.querySelector(".error").style.display = "none";
-  }
-  
+function showMessage(msg) {
+  errorBox.innerHTML = msg;
+  errorBox.style.display = "block";
+  weatherBox.style.display = "none";
 }
 
-document.getElementById("searchBtn").addEventListener("click", ()=>{
-  checkWeather(searchBox.value);
-})
+async function checkWeather(city) {
+  try {
+    const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+    const data = await response.json();
 
+    if (data.cod != 200) {
+      showMessage("Invalid city name. Enter city name");
+      return;
+    }
+
+    cityEl.innerHTML = data.name;
+    tempEl.innerHTML = Math.round(data.main.temp) + "°C";
+    humidityEl.innerHTML = data.main.humidity + "%";
+    windEl.innerHTML = data.wind.speed + " km/h";
+
+    const condition = data.weather[0].main;
+
+    const icons = {
+      Clouds: "./public/images/clouds.png",
+      Clear: "./public/images/clear.png",
+      Rain: "./public/images/rain.png",
+      Drizzle: "./public/images/drizzle.png",
+      Mist: "./public/images/mist.png",
+    };
+
+    weatherIcon.src = icons[condition] || icons["Clear"];
+
+    weatherBox.style.display = "block";
+    errorBox.style.display = "none";
+  } catch (err) {
+    showMessage("Invalid city name. Enter city name");
+  }
+}
+
+function handleSearch() {
+  const city = searchBox.value.trim();
+  // empty input
+  if (city === "") {
+    showMessage("Please enter your city name");
+    return;
+  }
+
+  checkWeather(city);
+}
+
+searchBtn.addEventListener("click", handleSearch);
+
+searchBox.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    handleSearch();
+  }
+});
